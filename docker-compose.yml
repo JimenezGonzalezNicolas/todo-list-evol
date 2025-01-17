@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:15
+    container_name: todo-postgres
+    environment:
+      POSTGRES_USER: todo_user
+      POSTGRES_PASSWORD: todo_password
+      POSTGRES_DB: todo_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - evol_postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./evol-backend
+    container_name: todo-backend
+    ports:
+      - "4000:4000"
+    environment:
+      DB_USER: todo_user
+      DB_PASSWORD: todo_password
+      DB_NAME: todo_db
+      DB_HOST: postgres
+      DB_PORT: 5432
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: ./evol-front
+    container_name: todo-frontend
+    ports:
+      - "3000:80" 
+    depends_on:
+      - backend
+
+volumes:
+  evol_postgres_data:
