@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.evol-icon {
+  filter: brightness(0) saturate(100%) invert(41%) sepia(2%) saturate(2435%) hue-rotate(182deg) brightness(107%) contrast(98%);
+}
+
+input:focus, 
+textarea:focus, 
+select:focus {
+    outline: none;
+    box-shadow: none;
+}
